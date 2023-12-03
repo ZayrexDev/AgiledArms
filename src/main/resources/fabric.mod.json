@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "agiled_arms",
+  "version": "${version}",
+
+  "name": "AgiledArms",
+  "description": "",
+  "authors": [],
+  "contact": {},
+
+  "license": "MIT",
+  "icon": "assets/agiled_arms/icon.png",
+
+  "environment": "*",
+  "entrypoints": {},
+
+      "mixins": [
+        "agiled_arms.mixins.json"
+      ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
