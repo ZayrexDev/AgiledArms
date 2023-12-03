@@ -2,25 +2,26 @@
   "schemaVersion": 1,
   "id": "agiled_arms",
   "version": "${version}",
-
   "name": "AgiledArms",
   "description": "",
   "authors": [],
-  "contact": {},
-
+  "contact": {
+    "repo": "https://github.com/ZayrexDev/AgiledArms"
+  },
   "license": "MIT",
   "icon": "assets/agiled_arms/icon.png",
-
   "environment": "*",
-  "entrypoints": {},
-
-      "mixins": [
-        "agiled_arms.mixins.json"
-      ],
-
+  "entrypoints": {
+    "main": [
+      "xyz.zcraft.agiled_arms.AgiledArms"
+    ]
+  },
+  "mixins": [
+    "agiled_arms.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-        "fabric": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_version}"
   }
 }

@@ -1,7 +1,6 @@
 package xyz.zcraft.agiled_arms.mixin;
 
 import com.google.common.collect.Multimap;
-import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -17,17 +16,17 @@ import xyz.zcraft.agiled_arms.AgileEnchantment;
 import java.util.Collection;
 import java.util.UUID;
 
-@Mixin(FabricItem.class)
-public class FabricItemMixin {
-    protected static final UUID ATTACK_SPEED_MODIFIER_ID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
-
+@Mixin(ItemStack.class)
+public class ItemStackMixin {
+    private static final UUID ATTACK_DAMAGE_MODIFIER_ID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     @Inject(method = "getAttributeModifiers", at = @At("RETURN"))
-    void getAttributeModifiers(ItemStack stack, EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
+    void getAttributeModifiers(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         if (slot.getType().equals(EquipmentSlot.Type.HAND)) {
-            final float agileLvl = EnchantmentHelper.getLevel(AgileEnchantment.INSTANCE, stack);
+            final ItemStack self = (ItemStack) (Object) this;
+            final float agileLvl = EnchantmentHelper.getLevel(AgileEnchantment.INSTANCE, self);
             if (agileLvl > 0) {
                 final Collection<EntityAttributeModifier> entityAttributeModifiers = cir.getReturnValue().get(EntityAttributes.GENERIC_ATTACK_SPEED);
-                entityAttributeModifiers.add(new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Agile enchantment", agileLvl * (2.0 / 3.0), EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+                entityAttributeModifiers.add(new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Agile enchantment", agileLvl * 0.4, EntityAttributeModifier.Operation.ADDITION));
             }
         }
     }
